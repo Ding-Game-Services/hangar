@@ -111,6 +111,16 @@ LoadedCore loadCore(const std::string& path) {
     }
 
     core.loaded = core.missingRequired.empty();
+
+    // Hangar extension diagnostics — optional, resolved the same way as
+    // everything else, but never affects `loaded` or missingRequired/Optional
+    // since this isn't part of the ding_core.h contract at all.
+    core.hangar_get_entry_count = reinterpret_cast<uint32_t (*)()>(
+        getSymbol(core.handle, "hangar_get_entry_count"));
+    core.hangar_get_entry = reinterpret_cast<void (*)(uint32_t, char*, char*, char*, uint32_t)>(
+        getSymbol(core.handle, "hangar_get_entry"));
+    core.hasHangarExt = core.hangar_get_entry_count && core.hangar_get_entry;
+
     return core;
 }
 

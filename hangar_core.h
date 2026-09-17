@@ -80,6 +80,13 @@ struct LoadedCore {
     std::string loadError;             // set if the library itself failed to load
 
     bool romLoaded = false;
+
+    // Hangar extension diagnostics (see hangar_ext_template.h) — entirely
+    // optional, not part of ding_core.h. Both null if a core hasn't
+    // implemented hangar.cpp yet; hasHangarExt is true only if both resolved.
+    uint32_t (*hangar_get_entry_count)() = nullptr;
+    void (*hangar_get_entry)(uint32_t, char*, char*, char*, uint32_t) = nullptr;
+    bool hasHangarExt = false;
 };
 
 /* Loads a core library and resolves its API. Does not call ding_init(). */

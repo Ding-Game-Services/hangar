@@ -83,4 +83,5 @@ add_custom_command(TARGET hangar POST_BUILD
 add_custom_command(TARGET hangar POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:hangar>/cores
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:hangar>/roms
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:hangar>/bios
 )
